@@ -117,41 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"new.js":[function(require,module,exports) {
+})({"Classes/Restaurant.js":[function(require,module,exports) {
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Restaurant = void 0;
+
+var Restaurant =
+/** @class */
+function () {
+  function Restaurant(name, appliance) {
+    this._name = name;
+    this._appliance = appliance;
+  }
+
+  Restaurant.prototype.cook = function (item) {
+    this._appliance.turnOn();
+
+    this._appliance.prepare(item);
+
+    this._appliance.turnOff();
+  };
+
+  return Restaurant;
+}();
+
+exports.Restaurant = Restaurant;
+},{}],"Classes/Oven.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Oven = void 0;
 
 var Oven =
 /** @class */
 function () {
   function Oven() {}
 
-  Oven.prototype.lightGas = function () {
+  Oven.prototype.turnOn = function () {
     setTimeout(function () {
-      document.getElementById('target').innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE GAS IS ON!</p>";
+      document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE GAS IS ON!</p>";
     }, 1000);
     console.log("THE GAS IS ON!"); //insert fart humor here
 
     this._isOn = true;
   };
 
-  Oven.prototype.extinguishGas = function () {
+  Oven.prototype.turnOff = function () {
     setTimeout(function () {
-      document.getElementById('target').innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE GAS IS OFF!</p><hr>";
+      document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE GAS IS OFF!</p><hr>";
     }, 3000);
     console.log("THE GAS IS OFF!"); //insert fart humor here
 
     this._isOn = false;
   };
 
-  Oven.prototype.bake = function (item) {
+  Oven.prototype.prepare = function (item) {
     if (this._isOn) {
       setTimeout(function () {
-        document.getElementById('target').innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : Now baking " + item + " !</p>";
+        document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : Now baking " + item + " !</p>";
       }, 2000);
       console.log("Now baking " + item + "!");
     } else {
       setTimeout(function () {
-        document.getElementById('target').innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : there is no gas!</p>";
+        document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : there is no gas!</p>";
       }, 2000);
       console.log("there is no gas!"); //insert fart humor here
     }
@@ -160,36 +193,75 @@ function () {
   return Oven;
 }();
 
-var Restaurant =
+exports.Oven = Oven;
+},{}],"Classes/Stove.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Stove = void 0;
+
+var Stove =
 /** @class */
 function () {
-  function Restaurant(name) {
-    this._oven = new Oven();
-    this._name = name;
-  }
+  function Stove() {}
 
-  Restaurant.prototype.Cook = function (item) {
-    this._oven.lightGas();
+  Stove.prototype.turnOn = function () {
+    setTimeout(function () {
+      document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE STOVE IS ON!</p>";
+    }, 4000);
+    console.log("THE STOVE IS ON!"); //insert fart humor here
 
-    this._oven.bake(item);
-
-    this._oven.extinguishGas();
+    this._isOn = true;
   };
 
-  return Restaurant;
+  Stove.prototype.turnOff = function () {
+    setTimeout(function () {
+      document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : THE STOVE IS OFF!</p><hr>";
+    }, 6000);
+    console.log("THE STOVE IS OFF!"); //insert fart humor here
+
+    this._isOn = false;
+  };
+
+  Stove.prototype.prepare = function (item) {
+    if (this._isOn) {
+      setTimeout(function () {
+        document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : Now grilling " + item + " !</p>";
+      }, 5000);
+      console.log("Now grilling " + item + "!");
+    } else {
+      setTimeout(function () {
+        document.getElementById("target").innerHTML += "<p>" + new Date().getHours() + ":" + new Date().getMinutes() + " : there is no power!</p>";
+      }, 2000);
+      console.log("there is no power!"); //insert fart humor here
+    }
+  };
+
+  return Stove;
 }();
 
-var bakery = new Restaurant("Bakery");
-bakery.Cook("cookies"); //Now if we want to add a new restaurant with an ELECTRIC cooker, we are gonna be in a hot mess ...
+exports.Stove = Stove;
+},{}],"new.js":[function(require,module,exports) {
+"use strict";
 
-/*
-let bakery = new Restaurant("Bakery", new Oven());
-bakery.Cook("cookies");
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-let crepery = new Restaurant("Crepery", new Stove());
-crepery.Cook("crepes");
- */
-},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var Restaurant_1 = require("./Classes/Restaurant");
+
+var Oven_1 = require("./Classes/Oven");
+
+var Stove_1 = require("./Classes/Stove"); //Now if we want to add a new restaurant with an ELECTRIC cooker, we are gonna be in a hot mess ...
+
+
+var bakery = new Restaurant_1.Restaurant("Bakery", new Oven_1.Oven());
+bakery.cook("cookies");
+var crepery = new Restaurant_1.Restaurant("Crepery", new Stove_1.Stove());
+crepery.cook("crepes");
+},{"./Classes/Restaurant":"Classes/Restaurant.js","./Classes/Oven":"Classes/Oven.js","./Classes/Stove":"Classes/Stove.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +289,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57337" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59419" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
